@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year 🎉</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #020024, #090979, #00d4ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: white;
+}
+
+/* Login Card */
+.card {
+    background: rgba(0,0,0,0.6);
+    padding: 30px;
+    border-radius: 15px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.card h2 {
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #00d4ff;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #00b4d8;
+}
+
+/* Greeting Section */
+#greetingSection {
+    display: none;
+    text-align: center;
+}
+
+#greeting {
+    font-size: 26px;
+    min-height: 70px;
+}
+
+/* Typing Cursor */
+.cursor {
+    display: inline-block;
+    width: 3px;
+    background: white;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* Fireworks / Confetti */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: red;
+    animation: fall 3s linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10vh) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+}
+
+/* Developer Section */
+.dev {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,0.3);
+}
+
+.dev img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.dev a {
+    color: #00ffcc;
+    text-decoration: none;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="loginCard">
+    <h2>🎉 New Year Login 🎉</h2>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <button onclick="startGreeting()">Login</button>
+</div>
+
+<div class="card" id="greetingSection">
+    <div id="greeting"></div><span class="cursor"></span>
+
+    <div class="dev">
+        <img src="https://via.placeholder.com/150" alt="Developer">
+        <p>Contact Developer</p>
+        <a href="https://wa.me/+233257892339" target="_blank">
+            📱 WhatsApp: +233257892339
+        </a>
+    </div>
+</div>
+
+<script>
+function startGreeting() {
+    const name = document.getElementById("nameInput").value.trim();
+    if (!name) {
+        alert("Please enter your name");
+        return;
+    }
+
+    document.getElementById("loginCard").style.display = "none";
+    document.getElementById("greetingSection").style.display = "block";
+
+    const text = `🎆 Happy New Year, ${name}! 🎆\nMay all your dreams come true in 2026!`;
+    let i = 0;
+    const greeting = document.getElementById("greeting");
+
+    function typeEffect() {
+        if (i < text.length) {
+            greeting.innerHTML += text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
+            i++;
+            setTimeout(typeEffect, 60);
+        }
+    }
+
+    typeEffect();
+    startConfetti();
+}
+
+/* Confetti Animation */
+function startConfetti() {
+    for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.background = `hsl(${Math.random()*360},100%,50%)`;
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        document.body.appendChild(confetti);
+    }
+}
+</script>
+
+</body>
+</html>
